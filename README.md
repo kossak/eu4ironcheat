@@ -13,3 +13,7 @@ By default target backup file name is build as `SOURCE_NAME-backup-UNIX_TIMESTAM
 #### Restore:
     
     eu4restore BACKUP_FILE TARGET_SAVE
+
+
+### TODO:
+- Daemon for auto-backup of running game
