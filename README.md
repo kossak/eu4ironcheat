@@ -1,5 +1,7 @@
 # eu4ironcheat
 Scripts for creating backups and restoring them for Europa Universalis 4 for Unix systems
+
+Path for saved games is stored in env `EU4_SAVED_GAMES_PATH`, which default value `${HOME}/Documents/Paradox Interactive/Europa Universalis IV/save games` 
 ## Usage:
 Add to your `~/.bash_profile`
     

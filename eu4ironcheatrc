@@ -1,22 +1,20 @@
-sg_path="${HOME}/Documents/Paradox Interactive/Europa Universalis IV/save games"
-if ! [ -z $EU_SG_PATH ] ; then
-    sg_path = $EU_SG_PATH
-fi
+export EU4_SAVED_GAMES_PATH="${HOME}/Documents/Paradox Interactive/Europa Universalis IV/save games"
+
 
 function eu4backup() {
     if [ -z "$1" ] ; then
         echo "No savegame name passed"
         return 1
     fi
-    save_file_path="$sg_path/$1"
+    save_file_path="$EU4_SAVED_GAMES_PATH/$1"
     if ! [[ -f $save_file_path ]] ; then
         echo "File $save_file_path not found"
         return 2
     fi
     timestamp=`date +%s`
-    backup_file_path="$sg_path/$1-backup-$timestamp"
+    backup_file_path="$EU4_SAVED_GAMES_PATH/$1-backup-$timestamp"
     if ! [ -z "$2" ] ; then
-        backup_file_path="$sg_path/$2"
+        backup_file_path="$EU4_SAVED_GAMES_PATH/$2"
     fi
 
     printf -v quoted_save_file_path '%q' "$save_file_path"
@@ -28,7 +26,6 @@ function eu4backup() {
 }
 
 function eu4restore() {
-    sg_path="${HOME}/Documents/Paradox Interactive/Europa Universalis IV/save games"
     if [ -z "$1" ] ; then
         echo "No backup file name passed"
         return 1
@@ -37,14 +34,15 @@ function eu4restore() {
         echo "No target filename passed"
         return 2
     fi
-    if ! [[ -f "$sg_path/$1" ]] ; then
+    echo "$EU4_SAVED_GAMES_PATH/$1"
+    if ! [[ -f "$EU4_SAVED_GAMES_PATH/$1" ]] ; then
         echo "Backup file does not exist"
         return 3
     fi
     timestamp=`date +%s`
-    new_backup_file_path="$sg_path/$2-org-$timestamp"
-    cp "$sg_path/$2" "$new_backup_file_path"
-    cp "$sg_path/$1" "$sg_path/$2"
+    new_backup_file_path="$EU4_SAVED_GAMES_PATH/$2-org-$timestamp"
+    cp "$EU4_SAVED_GAMES_PATH/$2" "$new_backup_file_path"
+    cp "$EU4_SAVED_GAMES_PATH/$1" "$EU4_SAVED_GAMES_PATH/$2"
     echo "Save game $2 restored from $1"
     return 0
 }
